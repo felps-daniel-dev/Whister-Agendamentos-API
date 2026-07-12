@@ -47,6 +47,9 @@ public class Consulta {
     @Column(name = "valor_final", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorFinal;
 
+    @Column(name = "motivo_previo")
+    private String motivoPrevio;
+
     @Column(nullable = false)
     private boolean especial = false;
 

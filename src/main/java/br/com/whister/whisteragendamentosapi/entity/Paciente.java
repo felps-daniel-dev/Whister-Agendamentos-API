@@ -24,6 +24,5 @@ public class Paciente {
     @ManyToOne
     private Plano plano;
 
-    @Column(name = "motivo_previo")
-    private String motivoPrevio;
+
 }
