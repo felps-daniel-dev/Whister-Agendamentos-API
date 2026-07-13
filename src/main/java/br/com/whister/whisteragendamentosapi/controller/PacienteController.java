@@ -20,7 +20,7 @@ public class PacienteController {
     }
 
     @PostMapping("/novo")
-    public ResponseEntity<PacienteResponseDTO> novoPaciente(@RequestParam PacienteRequestDTO request){
+    public ResponseEntity<PacienteResponseDTO> novoPaciente(@RequestBody PacienteRequestDTO request){
         return ResponseEntity.ok().body(pacienteService.novoPaciente(request));
     }
 }

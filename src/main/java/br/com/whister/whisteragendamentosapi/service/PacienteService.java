@@ -3,12 +3,17 @@ package br.com.whister.whisteragendamentosapi.service;
 
 import br.com.whister.whisteragendamentosapi.dto.PacienteRequestDTO;
 import br.com.whister.whisteragendamentosapi.dto.PacienteResponseDTO;
+import br.com.whister.whisteragendamentosapi.entity.Paciente;
+import br.com.whister.whisteragendamentosapi.entity.Pessoa;
 import br.com.whister.whisteragendamentosapi.exception.custom.PacienteNaoEncontrado;
 import br.com.whister.whisteragendamentosapi.mapper.PacienteMapper;
+import br.com.whister.whisteragendamentosapi.mapper.PessoaMapper;
 import br.com.whister.whisteragendamentosapi.repository.PacienteRepository;
+import br.com.whister.whisteragendamentosapi.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @Service
 public class PacienteService {
@@ -19,6 +24,12 @@ public class PacienteService {
     @Autowired
     private PacienteMapper pacienteMapper;
 
+    @Autowired
+    private PessoaMapper pessoaMapper;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
 
     public PacienteResponseDTO buscaPacientePorId(Long id) {
        return pacienteMapper.toResponse(pacienteRepository.findById(id)
@@ -26,6 +37,11 @@ public class PacienteService {
     }
 
     public PacienteResponseDTO novoPaciente(PacienteRequestDTO request){
-        return null;
+
+        Paciente paciente = pacienteMapper.toEntity(request);
+        paciente.getPessoa().setDataCadastro(LocalDate.now());
+
+
+        return pacienteMapper.toResponse(pacienteRepository.save(paciente));
     }
 }
