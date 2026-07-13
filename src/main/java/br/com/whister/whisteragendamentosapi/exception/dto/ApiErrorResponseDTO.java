@@ -1,4 +1,4 @@
-package br.com.whister.whisteragendamentosapi.exception;
+package br.com.whister.whisteragendamentosapi.exception.dto;
 
 import java.time.LocalDateTime;
 
