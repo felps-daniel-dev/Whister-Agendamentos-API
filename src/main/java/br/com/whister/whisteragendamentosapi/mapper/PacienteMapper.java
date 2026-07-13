@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PacienteMapper {
 
+    //source de onde o dado esta para aonde ele vai
     @Mapping(source = "dadosPessoais", target = "pessoa")
     Paciente toEntity(PacienteRequestDTO request);
 
