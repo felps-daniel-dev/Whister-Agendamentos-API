@@ -1,4 +1,4 @@
-package br.com.whister.whisteragendamentosapi.dto;
+package br.com.whister.whisteragendamentosapi.dto.pessoa;
 
 import br.com.whister.whisteragendamentosapi.entity.enums.Sexo;
 import jakarta.validation.constraints.Email;

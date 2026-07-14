@@ -45,6 +45,6 @@ public class Pessoa {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @Column(name= "data_cadastro", nullable = false)
-    private LocalDate dataCadastro;
+    private LocalDate dataCadastro = LocalDate.now();
 
 }

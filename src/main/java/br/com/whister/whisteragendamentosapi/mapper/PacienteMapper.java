@@ -1,7 +1,7 @@
 package br.com.whister.whisteragendamentosapi.mapper;
 
-import br.com.whister.whisteragendamentosapi.dto.PacienteRequestDTO;
-import br.com.whister.whisteragendamentosapi.dto.PacienteResponseDTO;
+import br.com.whister.whisteragendamentosapi.dto.paciente.PacienteRequestDTO;
+import br.com.whister.whisteragendamentosapi.dto.paciente.PacienteResponseDTO;
 import br.com.whister.whisteragendamentosapi.entity.Paciente;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

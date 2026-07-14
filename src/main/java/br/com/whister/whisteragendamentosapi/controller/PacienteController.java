@@ -1,8 +1,7 @@
 package br.com.whister.whisteragendamentosapi.controller;
 
-import br.com.whister.whisteragendamentosapi.dto.PacienteRequestDTO;
-import br.com.whister.whisteragendamentosapi.dto.PacienteResponseDTO;
-import br.com.whister.whisteragendamentosapi.dto.PessoaResponseDTO;
+import br.com.whister.whisteragendamentosapi.dto.paciente.PacienteRequestDTO;
+import br.com.whister.whisteragendamentosapi.dto.paciente.PacienteResponseDTO;
 import br.com.whister.whisteragendamentosapi.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
