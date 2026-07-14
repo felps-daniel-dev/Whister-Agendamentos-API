@@ -1,9 +1,9 @@
 package br.com.whister.whisteragendamentosapi.service;
 
-
 import br.com.whister.whisteragendamentosapi.dto.PacienteRequestDTO;
 import br.com.whister.whisteragendamentosapi.dto.PacienteResponseDTO;
 import br.com.whister.whisteragendamentosapi.entity.Paciente;
+import br.com.whister.whisteragendamentosapi.exception.custom.NenhumPacienteEncontrado;
 import br.com.whister.whisteragendamentosapi.exception.custom.PacienteNaoEncontrado;
 import br.com.whister.whisteragendamentosapi.mapper.PacienteMapper;
 import br.com.whister.whisteragendamentosapi.repository.PacienteRepository;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class PacienteService {
@@ -21,6 +22,16 @@ public class PacienteService {
     @Autowired
     private PacienteMapper pacienteMapper;
     //@SQLRestriction("ativo = true")
+
+    public List<PacienteResponseDTO> listarPacientes(){
+        List<Paciente> lista = pacienteRepository.findAll();
+
+        if(lista.isEmpty()) {
+            throw new NenhumPacienteEncontrado("Nenhum paciente encontrado!");
+        }
+        return pacienteMapper.toResponseList(lista);
+    }
+
 
     public PacienteResponseDTO buscaPacientePorId(Long id) {
        return pacienteMapper.toResponse(pacienteRepository.findById(id)
@@ -37,8 +48,8 @@ public class PacienteService {
     }
 
     public void excluirPaciente(Long id) {
-        Paciente paciente = pacienteRepository.findById(id)
-                .orElseThrow(() -> new PacienteNaoEncontrado("Paciente não encontrado!"));
-        paciente.setAtivo(false);
+        //Paciente paciente = pacienteRepository.findById(id)
+        //        .orElseThrow(() -> new PacienteNaoEncontrado("Paciente não encontrado!"));
+        pacienteRepository.deleteById(id);
     }
 }

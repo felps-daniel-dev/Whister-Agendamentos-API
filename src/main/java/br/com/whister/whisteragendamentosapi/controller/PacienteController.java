@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/paciente")
 public class PacienteController {
@@ -14,11 +16,20 @@ public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
 
+    @PostMapping
+    public ResponseEntity<PacienteResponseDTO> novoPaciente(@RequestBody PacienteRequestDTO request) {
+        return ResponseEntity.ok().body(pacienteService.novoPaciente(request));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirPaciente(@PathVariable Long id) {
         pacienteService.excluirPaciente(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/lista")
+    public ResponseEntity<List<PacienteResponseDTO>> listarPacientes(){
+        return ResponseEntity.ok().body(pacienteService.listarPacientes());
     }
 
     @GetMapping("/{id}")
@@ -26,8 +37,5 @@ public class PacienteController {
         return ResponseEntity.ok().body(pacienteService.buscaPacientePorId(id));
     }
 
-    @PostMapping
-    public ResponseEntity<PacienteResponseDTO> novoPaciente(@RequestBody PacienteRequestDTO request) {
-        return ResponseEntity.ok().body(pacienteService.novoPaciente(request));
-    }
+
 }
