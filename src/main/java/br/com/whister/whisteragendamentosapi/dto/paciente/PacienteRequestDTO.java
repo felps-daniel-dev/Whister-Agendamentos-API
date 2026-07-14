@@ -1,7 +1,7 @@
-package br.com.whister.whisteragendamentosapi.dto;
+package br.com.whister.whisteragendamentosapi.dto.paciente;
 
+import br.com.whister.whisteragendamentosapi.dto.pessoa.PessoaRequestDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 
 public record PacienteRequestDTO(

@@ -1,6 +1,6 @@
 package br.com.whister.whisteragendamentosapi.service;
 
-import br.com.whister.whisteragendamentosapi.dto.PessoaRequestDTO;
+import br.com.whister.whisteragendamentosapi.dto.pessoa.PessoaRequestDTO;
 import br.com.whister.whisteragendamentosapi.entity.Pessoa;
 import org.springframework.stereotype.Service;
 

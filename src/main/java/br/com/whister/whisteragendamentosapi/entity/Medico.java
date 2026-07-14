@@ -26,6 +26,6 @@ public class Medico {
     @ManyToOne
     private Especialidade especialidade;
 
-    private boolean ativo;
+    private Boolean ativo = true;
 
 }

@@ -1,7 +1,7 @@
 package br.com.whister.whisteragendamentosapi.service;
 
-import br.com.whister.whisteragendamentosapi.dto.PacienteRequestDTO;
-import br.com.whister.whisteragendamentosapi.dto.PacienteResponseDTO;
+import br.com.whister.whisteragendamentosapi.dto.paciente.PacienteRequestDTO;
+import br.com.whister.whisteragendamentosapi.dto.paciente.PacienteResponseDTO;
 import br.com.whister.whisteragendamentosapi.entity.Paciente;
 import br.com.whister.whisteragendamentosapi.exception.custom.NenhumPacienteEncontrado;
 import br.com.whister.whisteragendamentosapi.exception.custom.PacienteNaoEncontrado;
