@@ -21,24 +21,17 @@ public class PacienteService {
 
     @Autowired
     private PacienteMapper pacienteMapper;
-    //@SQLRestriction("ativo = true")
 
-    public List<PacienteResponseDTO> listarPacientes(){
-        List<Paciente> lista = pacienteRepository.findAll();
-
-        if(lista.isEmpty()) {
-            throw new NenhumPacienteEncontrado("Nenhum paciente encontrado!");
-        }
-        return pacienteMapper.toResponseList(lista);
-    }
+    @Autowired
+    private PessoaService pessoaService;
 
 
     public PacienteResponseDTO buscaPacientePorId(Long id) {
-       return pacienteMapper.toResponse(pacienteRepository.findById(id)
+        return pacienteMapper.toResponse(pacienteRepository.findById(id)
                 .orElseThrow(() -> new PacienteNaoEncontrado("Paciente não encontrado!")));
     }
 
-    public PacienteResponseDTO novoPaciente(PacienteRequestDTO request){
+    public PacienteResponseDTO novoPaciente(PacienteRequestDTO request) {
 
         Paciente paciente = pacienteMapper.toEntity(request);
         paciente.getPessoa().setDataCadastro(LocalDate.now());
@@ -48,8 +41,32 @@ public class PacienteService {
     }
 
     public void excluirPaciente(Long id) {
-        //Paciente paciente = pacienteRepository.findById(id)
-        //        .orElseThrow(() -> new PacienteNaoEncontrado("Paciente não encontrado!"));
-        pacienteRepository.deleteById(id);
+        Paciente paciente = pacienteRepository.findById(id)
+                .orElseThrow(() -> new PacienteNaoEncontrado("Paciente não encontrado!"));
+    }
+
+    //@SQLRestriction("ativo = true")
+    public List<PacienteResponseDTO> listarPacientes() {
+        List<Paciente> lista = pacienteRepository.findAll();
+
+        if (lista.isEmpty()) {
+            throw new NenhumPacienteEncontrado("Nenhum paciente encontrado!");
+        }
+        return pacienteMapper.toResponseList(lista);
+    }
+
+    public PacienteResponseDTO atualizarPaciente(Long id, PacienteRequestDTO request) {
+        Paciente paciente = pacienteRepository.findById(id)
+                .orElseThrow(() -> new PacienteNaoEncontrado("Paciente não encontrado!"));
+
+        if (request.dadosPessoais() != null){
+            paciente.setPessoa(pessoaService.alteraPessoa(paciente.getPessoa(), request.dadosPessoais()));
+        }
+
+        if(request.planoId() != null){
+            paciente.setId(request.planoId());
+        }
+
+        return pacienteMapper.toResponse(pacienteRepository.save(paciente));
     }
 }

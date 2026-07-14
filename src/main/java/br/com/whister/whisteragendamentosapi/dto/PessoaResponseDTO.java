@@ -11,6 +11,7 @@ public record PessoaResponseDTO(
         Sexo sexo,
         String email,
         String telefone,
-        LocalDate nascimento
+        LocalDate nascimento,
+        LocalDate dataCadastro
 ) {
 }
