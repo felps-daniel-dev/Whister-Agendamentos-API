@@ -1,5 +1,7 @@
 package br.com.whister.whisteragendamentosapi.exception;
 
+import br.com.whister.whisteragendamentosapi.exception.custom.EspecialidadeNaoEncontrada;
+import br.com.whister.whisteragendamentosapi.exception.custom.MedicoNaoEncontrado;
 import br.com.whister.whisteragendamentosapi.exception.custom.NenhumPacienteEncontrado;
 import br.com.whister.whisteragendamentosapi.exception.custom.PacienteNaoEncontrado;
 import br.com.whister.whisteragendamentosapi.exception.dto.ApiErrorResponseDTO;
@@ -14,6 +16,31 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class HandleException {
 
+    @ExceptionHandler(EspecialidadeNaoEncontrada.class)
+    public ResponseEntity<ApiErrorResponseDTO> handleEspecialidadeNaoEncontrada(
+            EspecialidadeNaoEncontrada ex,
+            HttpServletRequest request
+    ){
+        return buildErrorResponse(
+                HttpStatus.NOT_FOUND,
+                "Recurso não encontrado!",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(MedicoNaoEncontrado.class)
+    public ResponseEntity<ApiErrorResponseDTO> handleMedicoNaoEncontrado(
+            MedicoNaoEncontrado ex,
+            HttpServletRequest request
+    ){
+        return buildErrorResponse(
+                HttpStatus.NOT_FOUND,
+                "Recurso não encontrado!",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
 
     @ExceptionHandler(NenhumPacienteEncontrado.class)
     public ResponseEntity<ApiErrorResponseDTO> handleNenhumPacienteEncontrado(
