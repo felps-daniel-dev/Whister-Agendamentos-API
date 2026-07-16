@@ -43,9 +43,10 @@ public class PacienteService {
     public void excluirPaciente(Long id) {
         Paciente paciente = pacienteRepository.findById(id)
                 .orElseThrow(() -> new PacienteNaoEncontrado("Paciente não encontrado!"));
+        pacienteRepository.delete(paciente);
     }
 
-    //@SQLRestriction("ativo = true")
+
     public List<PacienteResponseDTO> listarPacientes() {
         List<Paciente> lista = pacienteRepository.findAll();
 

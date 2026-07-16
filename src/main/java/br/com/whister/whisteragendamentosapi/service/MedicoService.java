@@ -9,8 +9,11 @@ import br.com.whister.whisteragendamentosapi.exception.custom.MedicoNaoEncontrad
 import br.com.whister.whisteragendamentosapi.mapper.MedicoMapper;
 import br.com.whister.whisteragendamentosapi.repository.EspecialidadeRepository;
 import br.com.whister.whisteragendamentosapi.repository.MedicoRepository;
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class MedicoService {
@@ -26,12 +29,12 @@ public class MedicoService {
     private EspecialidadeRepository especialidadeRepository;
 
 
-    public MedicoResponseDTO buscarMedicoPorId(Long id){
+    public MedicoResponseDTO buscarMedicoPorId(Long id) {
         return medicoMapper.toResponse(medicoRepository.findById(id)
                 .orElseThrow(() -> new MedicoNaoEncontrado("Medico não encontrado!")));
     }
 
-    public MedicoResponseDTO novoMedico(MedicoRequestDTO request){
+    public MedicoResponseDTO novoMedico(MedicoRequestDTO request) {
         Especialidade especialidade = especialidadeRepository.findById(request.especialidadeId())
                 .orElseThrow(() -> new EspecialidadeNaoEncontrada("Especialidade não existe!"));
 
@@ -41,5 +44,11 @@ public class MedicoService {
         medicoRepository.save(medico);
 
         return medicoMapper.toResponse(medico);
+    }
+
+    public void excluirMedico(Long id) {
+        Medico medico = medicoRepository.findById(id)
+                .orElseThrow(() -> new MedicoNaoEncontrado("Medico não encontrado!"));
+        medicoRepository.delete(medico);
     }
 }

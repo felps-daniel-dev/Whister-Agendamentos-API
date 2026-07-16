@@ -24,4 +24,10 @@ public class MedicoController {
     public ResponseEntity<MedicoResponseDTO> novoMedico(@RequestBody MedicoRequestDTO request){
         return ResponseEntity.ok().body(medicoService.novoMedico(request));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirMedico(@PathVariable Long id){
+        medicoService.excluirMedico(id);
+        return ResponseEntity.ok().build();
+    }
 }
