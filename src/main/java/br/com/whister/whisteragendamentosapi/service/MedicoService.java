@@ -4,6 +4,8 @@ import br.com.whister.whisteragendamentosapi.dto.medico.MedicoRequestDTO;
 import br.com.whister.whisteragendamentosapi.dto.medico.MedicoResponseDTO;
 import br.com.whister.whisteragendamentosapi.entity.Especialidade;
 import br.com.whister.whisteragendamentosapi.entity.Medico;
+import br.com.whister.whisteragendamentosapi.exception.custom.EspecialidadeNaoEncontrada;
+import br.com.whister.whisteragendamentosapi.exception.custom.MedicoNaoEncontrado;
 import br.com.whister.whisteragendamentosapi.mapper.MedicoMapper;
 import br.com.whister.whisteragendamentosapi.repository.EspecialidadeRepository;
 import br.com.whister.whisteragendamentosapi.repository.MedicoRepository;
@@ -26,12 +28,12 @@ public class MedicoService {
 
     public MedicoResponseDTO buscarMedicoPorId(Long id){
         return medicoMapper.toResponse(medicoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Medico não encontrado!")));
+                .orElseThrow(() -> new MedicoNaoEncontrado("Medico não encontrado!")));
     }
 
     public MedicoResponseDTO novoMedico(MedicoRequestDTO request){
         Especialidade especialidade = especialidadeRepository.findById(request.especialidadeId())
-                .orElseThrow(() -> new IllegalArgumentException("Especialidade não existe!"));
+                .orElseThrow(() -> new EspecialidadeNaoEncontrada("Especialidade não existe!"));
 
         Medico medico = medicoMapper.toEntity(request);
         medico.setEspecialidade(especialidade);
