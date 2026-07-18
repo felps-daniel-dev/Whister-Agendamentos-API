@@ -6,6 +6,8 @@ import br.com.whister.whisteragendamentosapi.entity.Medico;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface MedicoMapper {
 
@@ -14,4 +16,7 @@ public interface MedicoMapper {
 
     @Mapping(source = "pessoa", target = "dadosPessoais")
     MedicoResponseDTO toResponse(Medico entity);
+
+    @Mapping(source = "pessoa", target = "dadosPessoais")
+    List<MedicoResponseDTO> toListResponse(List<Medico> medicos);
 }
