@@ -2,10 +2,12 @@ package br.com.whister.whisteragendamentosapi.service;
 
 import br.com.whister.whisteragendamentosapi.dto.pessoa.PessoaRequestDTO;
 import br.com.whister.whisteragendamentosapi.entity.Pessoa;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@RequiredArgsConstructor
 public class PessoaService {
 
 

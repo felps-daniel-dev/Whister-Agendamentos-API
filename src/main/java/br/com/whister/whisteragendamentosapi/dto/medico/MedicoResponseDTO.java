@@ -4,6 +4,7 @@ import br.com.whister.whisteragendamentosapi.dto.especialidade.EspecialidadeMedi
 import br.com.whister.whisteragendamentosapi.dto.pessoa.PessoaResponseDTO;
 
 public record MedicoResponseDTO(
+        Long id,
         PessoaResponseDTO dadosPessoais,
         String crm,
         EspecialidadeMedicoResponseDTO especialidade,
