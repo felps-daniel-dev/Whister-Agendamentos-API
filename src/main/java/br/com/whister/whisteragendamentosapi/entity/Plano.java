@@ -23,7 +23,7 @@ public class Plano {
     private String nome;
 
     @Column(nullable = false)
-    private int qtd_consultas_gratis_trimestral;
+    private Integer qtd_consultas_gratis_trimestral;
 
     @Column(nullable = false)
     private Double desconto;
