@@ -34,4 +34,10 @@ public class PlanoService {
 
         return planoMapper.toResponse(plano);
     }
+
+    public void excluirPlano(Long id) {
+        Plano plano = planoRepository.findById(id)
+                        .orElseThrow(() -> new PlanoNaoEncontrado("Plano não encontrado!"));
+        planoRepository.delete(plano);
+    }
 }

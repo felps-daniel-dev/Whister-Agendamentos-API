@@ -16,12 +16,19 @@ public class PlanoController {
     private PlanoService planoService;
 
     @PostMapping
-    public ResponseEntity<PlanoResponseDTO> novoPlano(@RequestBody PlanoRequestDTO request){
+    public ResponseEntity<PlanoResponseDTO> novoPlano(@RequestBody PlanoRequestDTO request) {
         return ResponseEntity.ok().body(planoService.novoPlano(request));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirPlano(@PathVariable Long id) {
+        planoService.excluirPlano(id);
+        return ResponseEntity.ok().build();
+    }
+
+
     @GetMapping("/{id}")
-    public ResponseEntity<PlanoResponseDTO> buscarPorId(@PathVariable Long id){
+    public ResponseEntity<PlanoResponseDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok().body(planoService.bucarPorId(id));
     }
 }

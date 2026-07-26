@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
 
@@ -13,6 +15,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "update Plano set ativo = false where id = ? ")
+@SQLRestriction("where ativo = true")
 public class Plano {
 
     @Id
@@ -30,5 +34,7 @@ public class Plano {
 
     @Column(name = "data_ultimo_reset", nullable = false)
     private LocalDate dataUltimoReset;
+
+    private Boolean ativo;
 
 }
