@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/plano")
 public class PlanoController {
@@ -24,6 +26,18 @@ public class PlanoController {
     public ResponseEntity<Void> excluirPlano(@PathVariable Long id) {
         planoService.excluirPlano(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PlanoResponseDTO> atualizarPlano(@PathVariable Long id, @RequestBody PlanoRequestDTO request){
+
+        return ResponseEntity.ok().body(planoService.atualizarPlano(id, request));
+
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<PlanoResponseDTO>> listarPlanos(){
+        return ResponseEntity.ok().body(planoService.listarPlanos());
     }
 
 

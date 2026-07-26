@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SQLDelete(sql = "update Plano set ativo = false where id = ? ")
-@SQLRestriction("where ativo = true")
+@SQLRestriction(" ativo = true")
 public class Plano {
 
     @Id
@@ -35,6 +35,6 @@ public class Plano {
     @Column(name = "data_ultimo_reset", nullable = false)
     private LocalDate dataUltimoReset;
 
-    private Boolean ativo;
+    private Boolean ativo = true;
 
 }
