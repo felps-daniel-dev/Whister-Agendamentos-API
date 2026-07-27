@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalTime;
 
@@ -14,6 +16,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "update especialidade set ativo = false where id = ?")
+@SQLRestriction("ativo = true")
 public class Especialidade {
 
     @Id
@@ -24,11 +28,11 @@ public class Especialidade {
     private String nome;
 
     @Column(nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime duracao;
 
     @Column(nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime intervalo;
 
     @Column(name = "desconto_promocional")
@@ -36,4 +40,6 @@ public class Especialidade {
 
     @Column(name = "porcentagem_especial")
     private Double porcentagemEspecial;
+
+    private Boolean ativo = true;
 }

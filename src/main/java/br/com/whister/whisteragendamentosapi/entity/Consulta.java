@@ -35,7 +35,7 @@ public class Consulta {
     private Sala sala;
 
     @Column(name = "data_hora", nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataHora;
 
     @Column(name = "valor_bruto", nullable = false, precision = 10, scale = 2)
@@ -67,6 +67,4 @@ public class Consulta {
     @Column(name = "atualizado_em", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate atualizadoEm;
-
-
 }
