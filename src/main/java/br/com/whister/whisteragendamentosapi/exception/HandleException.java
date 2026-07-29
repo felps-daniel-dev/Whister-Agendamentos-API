@@ -59,7 +59,7 @@ public class HandleException {
             HttpServletRequest request
     ){
         return buildErrorResponse(
-                HttpStatus.NO_CONTENT,
+                HttpStatus.NOT_FOUND,
                 "Recurso não encontrado!",
                 ex.getMessage(),
                 request.getRequestURI()

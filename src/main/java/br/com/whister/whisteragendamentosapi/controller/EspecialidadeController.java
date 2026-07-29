@@ -2,7 +2,6 @@ package br.com.whister.whisteragendamentosapi.controller;
 
 import br.com.whister.whisteragendamentosapi.dto.especialidade.EspecialidadeRequestDTO;
 import br.com.whister.whisteragendamentosapi.dto.especialidade.EspecialidadeResponseDTO;
-import br.com.whister.whisteragendamentosapi.entity.Especialidade;
 import br.com.whister.whisteragendamentosapi.service.EspecialidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
