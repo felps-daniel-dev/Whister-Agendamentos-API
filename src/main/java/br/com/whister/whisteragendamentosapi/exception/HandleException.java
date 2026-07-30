@@ -13,6 +13,19 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class HandleException {
 
+    @ExceptionHandler(SalaNaoEncontrada.class)
+    public ResponseEntity<ApiErrorResponseDTO> handleSalaNaoEncontrada(
+            SalaNaoEncontrada ex,
+            HttpServletRequest request
+    ){
+        return buildErrorResponse(
+                HttpStatus.NOT_FOUND,
+                "Recurso não encontrado!",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
     @ExceptionHandler(PlanoNaoEncontrado.class)
     public ResponseEntity<ApiErrorResponseDTO> handlePlanoNaoEncontrado(
             PlanoNaoEncontrado ex,

@@ -21,5 +21,7 @@ public class Sala {
     private String numeroSala;
 
     @Column(nullable = false)
-    private boolean disponivel;
+    private Boolean disponivelNoMomento;
+
+    private Boolean ativo = true;
 }
