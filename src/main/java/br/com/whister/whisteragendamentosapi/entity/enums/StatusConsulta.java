@@ -4,5 +4,6 @@ public enum StatusConsulta {
 
     CONSLUIDA,
     CANCELADA,
-    AGUARDANDO
+    AGUARDANDO,
+    NENHUM
 }

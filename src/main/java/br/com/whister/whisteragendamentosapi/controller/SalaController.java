@@ -3,6 +3,7 @@ package br.com.whister.whisteragendamentosapi.controller;
 import br.com.whister.whisteragendamentosapi.dto.sala.SalaRequestDTO;
 import br.com.whister.whisteragendamentosapi.dto.sala.SalaResponseDTO;
 import br.com.whister.whisteragendamentosapi.service.SalaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class SalaController {
     }
 
     @PostMapping
-    public ResponseEntity<SalaResponseDTO> novaSala(@RequestBody SalaRequestDTO request){
+    public ResponseEntity<SalaResponseDTO> novaSala(@RequestBody @Valid SalaRequestDTO request){
         return ResponseEntity.ok().body(salaService.novaSala(request));
     }
 
@@ -34,7 +35,7 @@ public class SalaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SalaResponseDTO> atualizarSala(@PathVariable Long id, @RequestBody SalaRequestDTO request){
+    public ResponseEntity<SalaResponseDTO> atualizarSala(@PathVariable Long id, @RequestBody @Valid SalaRequestDTO request){
         return ResponseEntity.ok().body(salaService.atualizarSala(id, request));
     }
 

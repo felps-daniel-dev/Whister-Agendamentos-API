@@ -1,0 +1,68 @@
+package br.com.whister.whisteragendamentosapi.service;
+
+import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaRequestDTO;
+import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaResponseDTO;
+import br.com.whister.whisteragendamentosapi.entity.Consulta;
+import br.com.whister.whisteragendamentosapi.entity.Medico;
+import br.com.whister.whisteragendamentosapi.entity.Paciente;
+import br.com.whister.whisteragendamentosapi.entity.Sala;
+import br.com.whister.whisteragendamentosapi.entity.enums.StatusConsulta;
+import br.com.whister.whisteragendamentosapi.exception.custom.MedicoNaoEncontrado;
+import br.com.whister.whisteragendamentosapi.exception.custom.PacienteNaoEncontrado;
+import br.com.whister.whisteragendamentosapi.exception.custom.SalaNaoEncontrada;
+import br.com.whister.whisteragendamentosapi.mapper.ConsultaMapper;
+import br.com.whister.whisteragendamentosapi.repository.ConsultaRepository;
+import br.com.whister.whisteragendamentosapi.repository.MedicoRepository;
+import br.com.whister.whisteragendamentosapi.repository.PacienteRepository;
+import br.com.whister.whisteragendamentosapi.repository.SalaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+
+@Service
+@RequiredArgsConstructor
+public class ConsultaService {
+
+    private final MedicoRepository medicoRepository;
+
+    private final PacienteRepository pacienteRepository;
+
+    private final SalaRepository salaRepository;
+
+    private final ConsultaRepository consultaRepository;
+
+    private final ConsultaMapper consultaMapper;
+
+
+    public ConsultaResponseDTO novaConsulta(ConsultaRequestDTO request) {
+
+        Medico medico = medicoRepository.findById(request.medicoId())
+                .orElseThrow(() -> new MedicoNaoEncontrado("Este Médico não foi registrado!"));
+
+        Paciente paciente = pacienteRepository.findById(request.pacienteId())
+                .orElseThrow(() -> new PacienteNaoEncontrado("Este Paciente não foi registrado"));
+
+        Sala sala = salaRepository.findById(request.salaId())
+                .orElseThrow(() -> new SalaNaoEncontrada("Esta sala não foi registrada!"));
+
+        Consulta consulta = Consulta.builder()
+                .medico(medico)
+                .paciente(paciente)
+                .sala(sala)
+                .dataHora(request.dataHora())
+                .valorBruto(request.valorBruto())
+                .motivoPrevio(request.motivoPrevio())
+                .especial(request.especial())
+                .status(StatusConsulta.AGUARDANDO)
+                .motivoCancelamento(request.motivoCancelamento())
+                .criadoEm(LocalDate.now())
+                .atualizadoEm(LocalDate.now())
+                .build();
+
+        consultaRepository.save(consulta);
+        // novo log
+        return consultaMapper.toResponse(consulta);
+    }
+}
