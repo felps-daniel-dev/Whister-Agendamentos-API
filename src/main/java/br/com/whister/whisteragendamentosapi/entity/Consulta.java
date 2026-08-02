@@ -4,6 +4,7 @@ import br.com.whister.whisteragendamentosapi.entity.enums.StatusConsulta;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

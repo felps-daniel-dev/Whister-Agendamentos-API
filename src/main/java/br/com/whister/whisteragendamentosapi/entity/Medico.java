@@ -21,7 +21,7 @@ public class Medico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 12, nullable = false, unique = true)
+    @Column(length = 13, nullable = false, unique = true)
     private String crm;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

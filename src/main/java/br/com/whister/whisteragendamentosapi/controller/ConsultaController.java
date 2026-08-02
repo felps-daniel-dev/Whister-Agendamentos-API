@@ -6,10 +6,7 @@ import br.com.whister.whisteragendamentosapi.service.ConsultaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/consulta")
@@ -21,5 +18,10 @@ public class ConsultaController {
     @PostMapping
     public ResponseEntity<ConsultaResponseDTO> novaConsulta(@RequestBody @Valid ConsultaRequestDTO request){
         return ResponseEntity.ok().body(consultaService.novaConsulta(request));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ConsultaResponseDTO> buscarPorId(@PathVariable Long id){
+        return ResponseEntity.ok().body(consultaService.buscarPorId(id));
     }
 }

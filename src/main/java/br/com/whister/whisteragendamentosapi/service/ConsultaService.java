@@ -7,6 +7,7 @@ import br.com.whister.whisteragendamentosapi.entity.Medico;
 import br.com.whister.whisteragendamentosapi.entity.Paciente;
 import br.com.whister.whisteragendamentosapi.entity.Sala;
 import br.com.whister.whisteragendamentosapi.entity.enums.StatusConsulta;
+import br.com.whister.whisteragendamentosapi.exception.custom.ConsultaNaoEncontrada;
 import br.com.whister.whisteragendamentosapi.exception.custom.MedicoNaoEncontrado;
 import br.com.whister.whisteragendamentosapi.exception.custom.PacienteNaoEncontrado;
 import br.com.whister.whisteragendamentosapi.exception.custom.SalaNaoEncontrada;
@@ -63,6 +64,12 @@ public class ConsultaService {
 
         consultaRepository.save(consulta);
         // novo log
+        return consultaMapper.toResponse(consulta);
+    }
+
+    public ConsultaResponseDTO buscarPorId(Long id) {
+        Consulta consulta = consultaRepository.findById(id)
+                .orElseThrow(() -> new ConsultaNaoEncontrada("Consulta não encontrada!"));
         return consultaMapper.toResponse(consulta);
     }
 }

@@ -1,5 +1,6 @@
 package br.com.whister.whisteragendamentosapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class Plano {
     private Double desconto;
 
     @Column(name = "data_ultimo_reset", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataUltimoReset;
 
     private Boolean ativo = true;
