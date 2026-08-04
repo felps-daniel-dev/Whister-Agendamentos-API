@@ -36,6 +36,8 @@ public class ConsultaService {
 
     private final ConsultaMapper consultaMapper;
 
+    private final LogConsultaService logService;
+
 
     public ConsultaResponseDTO novaConsulta(ConsultaRequestDTO request) {
 
@@ -63,7 +65,9 @@ public class ConsultaService {
                 .build();
 
         consultaRepository.save(consulta);
-        // novo log
+
+        logService.novoLog(consulta);
+
         return consultaMapper.toResponse(consulta);
     }
 
