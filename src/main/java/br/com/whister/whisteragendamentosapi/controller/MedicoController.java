@@ -6,7 +6,7 @@ import br.com.whister.whisteragendamentosapi.service.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.w3c.dom.stylesheets.LinkStyle;
+
 
 import java.util.List;
 

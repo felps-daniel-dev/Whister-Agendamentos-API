@@ -2,6 +2,7 @@ package br.com.whister.whisteragendamentosapi.service;
 
 import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaRequestDTO;
 import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaResponseDTO;
+import br.com.whister.whisteragendamentosapi.dto.consulta.RealizarConsultaRequestDTO;
 import br.com.whister.whisteragendamentosapi.entity.Consulta;
 import br.com.whister.whisteragendamentosapi.entity.Medico;
 import br.com.whister.whisteragendamentosapi.entity.Paciente;
@@ -38,6 +39,25 @@ public class ConsultaService {
 
     private final LogConsultaService logService;
 
+
+    public ConsultaResponseDTO realizarConsulta(Long id,RealizarConsultaRequestDTO request){
+        Consulta consulta = consultaRepository.findById(id)
+                .orElseThrow(() -> new ConsultaNaoEncontrada("Consulta não encontrada!"));
+
+        if (!request.motivoPrevio().equals(consulta) && !request.motivoPrevio().isEmpty()){
+            consulta.setMotivoPrevio(request.motivoPrevio());
+        }
+
+        if (!request.resultadoConsulta().isEmpty()){
+            consulta.setResultadoConsulta(request.resultadoConsulta());
+        }
+
+        consultaRepository.save(consulta);
+
+        logService.alteraLog(consulta);
+
+        return consultaMapper.toResponse(consulta);
+    }
 
     public ConsultaResponseDTO novaConsulta(ConsultaRequestDTO request) {
 

@@ -50,6 +50,9 @@ public class Consulta {
     @Column(name = "motivo_previo")
     private String motivoPrevio;
 
+    @Column(name = "resultado_consulta")
+    private String resultadoConsulta;
+
     @Column(nullable = false)
     private Boolean especial = false;
 
