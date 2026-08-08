@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -114,5 +115,10 @@ public class ConsultaService {
         logService.alteraLog(consulta);
 
         return consultaMapper.toResponse(consulta);
+    }
+
+    public List<ConsultaResponseDTO> listarConsultas() {
+        List<Consulta> listaConsulta = consultaRepository.findAll();
+        return consultaMapper.toResponseList(listaConsulta);
     }
 }

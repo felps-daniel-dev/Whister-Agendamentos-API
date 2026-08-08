@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/consulta")
 public class ConsultaController {
@@ -38,5 +40,10 @@ public class ConsultaController {
     @GetMapping("/{id}")
     public ResponseEntity<ConsultaResponseDTO> buscarPorId(@PathVariable Long id){
         return ResponseEntity.ok().body(consultaService.buscarPorId(id));
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<ConsultaResponseDTO>> listarConsultas(){
+        return ResponseEntity.ok().body(consultaService.listarConsultas());
     }
 }
