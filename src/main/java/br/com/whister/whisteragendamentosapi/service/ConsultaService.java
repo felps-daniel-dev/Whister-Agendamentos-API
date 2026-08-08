@@ -1,5 +1,7 @@
 package br.com.whister.whisteragendamentosapi.service;
 
+import br.com.whister.whisteragendamentosapi.controller.ConsultaController;
+import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaCancelamentoDTO;
 import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaRequestDTO;
 import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaResponseDTO;
 import br.com.whister.whisteragendamentosapi.dto.consulta.RealizarConsultaRequestDTO;
@@ -19,6 +21,7 @@ import br.com.whister.whisteragendamentosapi.repository.PacienteRepository;
 import br.com.whister.whisteragendamentosapi.repository.SalaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -94,6 +97,22 @@ public class ConsultaService {
     public ConsultaResponseDTO buscarPorId(Long id) {
         Consulta consulta = consultaRepository.findById(id)
                 .orElseThrow(() -> new ConsultaNaoEncontrada("Consulta não encontrada!"));
+        return consultaMapper.toResponse(consulta);
+    }
+
+    public ConsultaResponseDTO cancelarConsulta(Long id, ConsultaCancelamentoDTO request) {
+        Consulta consulta = consultaRepository.findById(id)
+                .orElseThrow(() -> new ConsultaNaoEncontrada("Esta consulta não existe!"));
+
+        if (consulta.getMotivoCancelamento() == null || !consulta.getMotivoCancelamento().equals(request.motivoCancelamento()) ){
+            consulta.setMotivoCancelamento(request.motivoCancelamento());
+            consulta.setStatus(StatusConsulta.CANCELADA);
+
+            consultaRepository.save(consulta);
+        }
+
+        logService.alteraLog(consulta);
+
         return consultaMapper.toResponse(consulta);
     }
 }

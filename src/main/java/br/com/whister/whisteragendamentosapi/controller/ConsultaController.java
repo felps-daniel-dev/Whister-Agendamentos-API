@@ -1,8 +1,10 @@
 package br.com.whister.whisteragendamentosapi.controller;
 
+import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaCancelamentoDTO;
 import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaRequestDTO;
 import br.com.whister.whisteragendamentosapi.dto.consulta.ConsultaResponseDTO;
 import br.com.whister.whisteragendamentosapi.dto.consulta.RealizarConsultaRequestDTO;
+import br.com.whister.whisteragendamentosapi.entity.Consulta;
 import br.com.whister.whisteragendamentosapi.service.ConsultaService;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
@@ -20,6 +22,11 @@ public class ConsultaController {
     @PostMapping
     public ResponseEntity<ConsultaResponseDTO> novaConsulta(@RequestBody @Valid ConsultaRequestDTO request){
         return ResponseEntity.ok().body(consultaService.novaConsulta(request));
+    }
+
+    @PutMapping("/{id}/cancelar")
+    public ResponseEntity<ConsultaResponseDTO> cancelarConsulta(@PathVariable Long id, @RequestBody ConsultaCancelamentoDTO request){
+        return ResponseEntity.ok().body(consultaService.cancelarConsulta(id, request));
     }
 
     @PutMapping("/{id}/realizar")
